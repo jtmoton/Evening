@@ -22,7 +22,7 @@ public class Main {
                 currentPoints = game1(keyboard, userInput, currentPoints);
             } else if
             (userInput.equals("2")) {
-                game2(keyboard, currentPoints);
+                currentPoints = game2(keyboard, currentPoints);
             } else if
             (userInput == "3") {
                 returnScore();
@@ -141,13 +141,38 @@ public class Main {
 
                     pointsRisked = keyboard.nextInt();
 
-                    roll1 = rollDice1();
+                   /* roll1 = rollDice1();
                     roll2 = rollDice2();
-                    int rollTotal = roll1 + roll2;
+                    int rollTotal = roll1 + roll2;*/
 
+                    System.out.println("Enter 'high' or 'low' to see if you hit!");
+                    Scanner keyboard2 = new Scanner(System.in);
+                    String whichGame = keyboard2.next();
 
+                   if(whichGame.equals("high")) {
+                       roll1 = rollDice1();
+                       roll2 = rollDice2();
+                       int rollTotal = roll1 + roll2;
+                        if (rollTotal >= 9 && rollTotal <= 12) {
 
-                    System.out.print("The two dice gave you... " + rollTotal + "!");
+                            currentPoints = (pointsRisked * 2) + currentPoints;
+                            System.out.print("The two dice gave you... " + rollTotal + "!" + "\n");
+                            System.out.println("You hit! You now have " + currentPoints + " points!");
+
+                        } else if (whichGame.equals("low")){
+                        if (rollTotal >= 2 && rollTotal <= 5) {
+                                currentPoints = (pointsRisked * 2) + currentPoints;
+                                System.out.println("You hit! You now have " + currentPoints + " points!");
+                            System.out.print("The two dice gave you... " + rollTotal + "!" + "\n");
+
+                        } else {
+                            System.out.println("Aw man! You didn't hit!");
+                            currentPoints = currentPoints - pointsRisked;
+                            System.out.println("You now have " + currentPoints + " points!");
+
+                            }
+                        }
+                    }
                 } else if
                 (userInput.equals("2")) {
                     roll1 = rollDice1();
