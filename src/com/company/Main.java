@@ -22,13 +22,13 @@ public class Main {
                 currentPoints = game1(keyboard, userInput, currentPoints);
             } else if
             (userInput.equals("2")) {
-                currentPoints = game2(keyboard, currentPoints);
+                currentPoints = game2(keyboard,  currentPoints, userInput);
             } else if
             (userInput.equals("3")) {
                 returnScore(currentPoints);
             } else if
             (userInput.equals("4")) {
-                startOver(userInput, keyboard);
+                currentPoints = startOver(userInput, keyboard, currentPoints);
             } else if
             (userInput.equals("-1")) {
                 System.out.println("Goodbye! Come again soon!");
@@ -95,14 +95,20 @@ public class Main {
                     System.out.println("You now have " + currentPoints + " points.");
 
                 }
-                /*System.out.println("Press -1 to EXIT! Press any other key to PLAY AGAIN!");
+                System.out.println("Press -1 to PLAY AGAIN! Press any other key to EXIT!");
+                userInput = keyboard.next();
+                if(userInput.equals("-1")) {
+                    currentPoints = game1(keyboard, userInput, currentPoints);
 
-                userInput = userChoice.next();*/
-                startOver(userInput, keyboard);
+                } else {
+                    //getMenuChoice(keyboard, userInput);
+                }
+                currentPoints = gameOver(currentPoints);
+                userInput = gameOverInput(userInput);
+                //startOver(userInput, keyboard, currentPoints);
             }
+
         }
-        gameOver(currentPoints);
-        startOver(userInput, keyboard);
         return currentPoints;
     }
 
@@ -117,7 +123,7 @@ public class Main {
         return randomIndex;
     }
 
-    public static int game2(Scanner keyboard, int currentPoints) {
+    public static int game2(Scanner keyboard, int currentPoints, String userChoice) {
 
         String userInput = "";
         int roll1 = 0;
@@ -135,68 +141,82 @@ public class Main {
         System.out.println("Range Rules: You will pick an amount between 2 and 12. If the number you choose matches the dice value, you triple your risk amount! " +
                 "\n" + "If it does not match exactly, you lose your risk amount.");
 
-        System.out.println("Press 1 to play RANGE or Press 2 to play AMOUNT.");
-
-        userInput = keyboard.next();
 
         while (!userInput.equals("-1")) {
 
+            System.out.println("Press 1 to play RANGE or Press 2 to play AMOUNT.");
+
+            userInput = keyboard.next();
+
             if (userInput.equals("1")) {
-                System.out.println("You have " + currentPoints + " points. How many points would you like to risk?");
+                if (userInput.equals("1")) {
+                    System.out.println("You have " + currentPoints + " points. How many points would you like to risk?");
 
-                pointsRisked = keyboard.nextInt();
+                    pointsRisked = keyboard.nextInt();
 
-                if (pointsRisked > currentPoints) {
-                    System.out.println("You don't have that many points! Enter a number less than what you have!");
-                } else {
-                    Scanner keyboard2 = new Scanner(System.in);
+                    if (pointsRisked > currentPoints) {
+                        System.out.println("You don't have that many points! Enter a number less than what you have!");
+                    } else {
+                        Scanner keyboard2 = new Scanner(System.in);
 
-                    System.out.println("Input 5 for high or 6 for low to see if you hit!");
-                    String whichGame = keyboard2.nextLine();
+                        System.out.println("Input 5 for high or 6 for low to see if you hit!");
+                        String whichGame = keyboard2.nextLine();
 
-                    int rollTotal = rollDice1() + rollDice2();
+                        int rollTotal = rollDice1() + rollDice2();
 
-                    if (whichGame.equals("5")) {
-                        if (rollTotal >= 9 && rollTotal <= 12) {
-                            currentPoints = (pointsRisked * 2) + currentPoints;
-                            System.out.print("The two dice gave you... " + rollTotal + "!" + "\n");
-                            System.out.println("You hit! You now have " + currentPoints + " points!");
-                        } else {
-                            System.out.print("The two dice gave you... " + rollTotal + "!" + "\n");
-                            System.out.println("Aw man! You didn't hit!");
-                            currentPoints = currentPoints - pointsRisked;
-                            System.out.println("You now have " + currentPoints + " points.");
+                        if (whichGame.equals("5")) {
+                            if (rollTotal >= 9 && rollTotal <= 12) {
+                                currentPoints = (pointsRisked * 2) + currentPoints;
+                                System.out.print("The two dice gave you... " + rollTotal + "!" + "\n");
+                                System.out.println("You hit! You now have " + currentPoints + " points!");
+                            } else {
+                                System.out.print("The two dice gave you... " + rollTotal + "!" + "\n");
+                                System.out.println("Aw man! You didn't hit!");
+                                currentPoints = currentPoints - pointsRisked;
+                                System.out.println("You now have " + currentPoints + " points.");
+                            }
+                        }
+                        if (whichGame.equals("6")) {
+                            if (rollTotal >= 2 && rollTotal <= 5) {
+                                currentPoints = (pointsRisked * 2) + currentPoints;
+                                System.out.print("The two dice gave you... " + rollTotal + "!" + "\n");
+                                System.out.println("You hit! You now have " + currentPoints + " points!");
+                            } else {
+                                System.out.print("The two dice gave you... " + rollTotal + "!" + "\n");
+                                System.out.println("Aw man! You didn't hit!");
+                                currentPoints = currentPoints - pointsRisked;
+                                System.out.println("You now have " + currentPoints + " points.");
+                            }
                         }
                     }
-                    if (whichGame.equals("6")) {
-                        if (rollTotal >= 2 && rollTotal <= 5) {
-                            currentPoints = (pointsRisked * 2) + currentPoints;
-                            System.out.print("The two dice gave you... " + rollTotal + "!" + "\n");
-                            System.out.println("You hit! You now have " + currentPoints + " points!");
-                        } else {
-                            System.out.print("The two dice gave you... " + rollTotal + "!" + "\n");
-                            System.out.println("Aw man! You didn't hit!");
-                            currentPoints = currentPoints - pointsRisked;
-                            System.out.println("You now have " + currentPoints + " points.");
-                        }
+                    System.out.println("Press -1 to PLAY AGAIN! Press any other key to EXIT!");
+
+                    userInput = keyboard.next();
+                    if (userInput.equals("-1")) {
+                        currentPoints = game2(keyboard, currentPoints, userInput);
                     }
+                    currentPoints = gameOver(currentPoints);
+                    userInput = gameOverInput(userInput);
                 }
-                startOver(userInput, keyboard);
-                gameOver(currentPoints);
-
-                /*System.out.println("Press 1 to play RANGE or Press 2 to play AMOUNT.");
-                userInput = keyboard.next();*/
+                /*currentPoints = gameOver(currentPoints);
+                userInput = gameOverInput(userInput);*/
             }
 
-            if (userInput.equals("2")) {
+            else if (userInput.equals("2")) {
                 System.out.println("You have " + currentPoints + " points. How many points would you like to risk?");
                 pointsRisked = keyboard.nextInt();
 
                 if (pointsRisked > currentPoints) {
                     System.out.println("You don't have that many points! Enter a number less than what you have!");
                 }
+
+                System.out.println("What do you think the roll will be?");
+                int rollGuess = keyboard.nextInt();
+
                 int rollTotal = rollDice1() + rollDice2();
-                if (rollTotal >= 2 && rollTotal <= 12) {
+
+
+                if (rollTotal == rollGuess) {
                     currentPoints = (pointsRisked * 3) + currentPoints;
                     System.out.print("The two dice gave you... " + rollTotal + "!" + "\n");
                     System.out.println("You hit! You now have " + currentPoints + " points!");
@@ -207,11 +227,18 @@ public class Main {
                     currentPoints = currentPoints - pointsRisked;
                     System.out.println("You now have " + currentPoints + " points.");
                 }
-            }
-            gameOver(currentPoints);
-            startOver(userInput, keyboard);
+                System.out.println("Press -1 to PLAY AGAIN! Press any other key to EXIT!");
 
+                userInput = keyboard.next();
+                if (userInput.equals("-1")) {
+                    currentPoints = game2(keyboard, currentPoints, userInput);
+                }
+                currentPoints = gameOver(currentPoints);
+                userInput = gameOverInput(userInput);
             }
+            /*currentPoints = gameOver(currentPoints);
+            userInput = gameOverInput(userInput);*/
+        }
         return currentPoints;
     }
 
@@ -243,16 +270,30 @@ public class Main {
 
     }
 
-    public static void startOver(String userInput, Scanner keyboard) {
-        getMenuChoice(keyboard, userInput);
+    public static int startOver(String userInput, Scanner keyboard, int currentPoints) {
+        while(currentPoints != 500) {
+            currentPoints = 500;
+            System.out.println("RESTART: You're resetting to " + currentPoints + " points.");
+        }
+        return currentPoints;
     }
 
-    public static void gameOver(int currentPoints) {
-        if (currentPoints == 0) {
-            System.out.println("GAME OVER. No more points left!");
-        } else if (currentPoints == 2000) {
-            System.out.println("YOU WON! You're a star!");
+    public static String gameOverInput(String userInput){
+        userInput = "-1";
+        return userInput;
+    }
+
+    public static int gameOver(int currentPoints) {
+        if (currentPoints <= 0) {
+            System.out.println("Yikes! You hit rock bottom.");
+            currentPoints = 500;
+            System.out.println("You're reset to 500 points! Try again...");
+        } else if (currentPoints >= 2000) {
+            System.out.println("CONGRATS on reaching 2000 points! You're a star!");
+            currentPoints = 500;
+            System.out.println("You'll be reset to 500 points so you can play again!");
         }
+        return currentPoints;
     }
 }
 
