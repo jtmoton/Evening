@@ -19,10 +19,10 @@ public class Main {
             pickWord(randNum);
 
             if (userInput.equals("1")) {
-                currentPoints = game1(keyboard, userInput, currentPoints);
+                currentPoints = runGame1(currentPoints, userInput, keyboard);
             } else if
             (userInput.equals("2")) {
-                currentPoints = game2(keyboard,  currentPoints, userInput);
+                currentPoints = runGame2(currentPoints, userInput, keyboard);
             } else if
             (userInput.equals("3")) {
                 returnScore(currentPoints);
@@ -60,7 +60,7 @@ public class Main {
                 "win double the amount you risked! " + "\n" + "And if all three words match, you will win triple the amount you risked!");
         System.out.println();
 
-        while (pointsRisked != -1 && !userInput.equals("-1")) {
+        //while (pointsRisked != -1 && !userInput.equals("-1")) {
 
             System.out.println("You have " + currentPoints + " points. How many points would you like to risk?");
             pointsRisked = keyboard.nextInt();
@@ -94,10 +94,10 @@ public class Main {
 
                 }
                 currentPoints = whatLevel(currentPoints);
-                System.out.println("Press 0 to PLAY AGAIN! Press 9 to EXIT!");
-                userInput = keyboard.next();
+                //System.out.println("Press 0 to PLAY AGAIN! Press 9 to EXIT!");
+                //userInput = keyboard.next();
 
-                runGame1(currentPoints, userInput, keyboard);
+                //runGame1(currentPoints, userInput, keyboard);
 
                 /*while(!userInput.equals("9")) {
 
@@ -110,7 +110,7 @@ public class Main {
                 currentPoints = whatLevel(currentPoints);
                 userInput = gameOverInput(userInput);
             }
-        }
+        //}
         return currentPoints;
     }
 
@@ -190,22 +190,20 @@ public class Main {
                         }
                     }
                     currentPoints = whatLevel(currentPoints);
-                    System.out.println("Press 0 to PLAY AGAIN! Press 9 to EXIT!");
-                    userInput = keyboard.next();
+                    //System.out.println("Press 0 to PLAY AGAIN! Press 9 to EXIT!");
+                    //userInput = keyboard.next();
 
                     currentPoints = whatLevel(currentPoints);
                     userInput = gameOverInput(userInput);
                 }
-                while (!userInput.equals("9")) {
+                /*while (!userInput.equals("9")) {
                     if (userInput.equals("0")) {
                         currentPoints = game2(keyboard, currentPoints, userInput);
                     } else if (userInput.equals("9")) {
-                    getMenuChoice(keyboard, userInput);
-                }
-                }
-            }
-
-            else if (userInput.equals("2")) {
+                        getMenuChoice(keyboard, userInput);
+                    }
+                }*/
+            } else if (userInput.equals("2")) {
                 System.out.println("You have " + currentPoints + " points. How many points would you like to risk?");
                 currentPoints = whatLevel(currentPoints);
                 pointsRisked = keyboard.nextInt();
@@ -235,14 +233,14 @@ public class Main {
                 System.out.println("Press 0 to PLAY AGAIN! Press 9 to EXIT!");
                 userInput = keyboard.next();
 
-                while(!userInput.equals("9")) {
+                /*while (!userInput.equals("9")) {
 
                     if (userInput.equals("0")) {
                         currentPoints = game2(keyboard, currentPoints, userInput);
                     } else if (userInput.equals("9")) {
                         getMenuChoice(keyboard, userInput);
                     }
-                }
+                }*/
             }
         }
         return currentPoints;
@@ -266,14 +264,14 @@ public class Main {
     }
 
     public static int startOver(String userInput, Scanner keyboard, int currentPoints) {
-        while(currentPoints != 500) {
+        while (currentPoints != 500) {
             currentPoints = 500;
             System.out.println("RESTART: You're resetting to " + currentPoints + " points.");
         }
         return currentPoints;
     }
 
-    public static String gameOverInput(String userInput){
+    public static String gameOverInput(String userInput) {
         userInput = "-1";
         return userInput;
     }
@@ -294,12 +292,22 @@ public class Main {
     public static int runGame1(int currentPoints, String userInput, Scanner keyboard) {
         userInput = "0";
 
-            while(userInput.equals("0")) {
+        while (userInput.equals("0")) {
             currentPoints = game1(keyboard, userInput, currentPoints);
             System.out.println("Press 0 to PLAY AGAIN or 9 to EXIT!");
             userInput = keyboard.next();
         }
+            return currentPoints;
+    }
 
+    public static int runGame2(int currentPoints, String userInput, Scanner keyboard) {
+        userInput = "0";
+
+        while (userInput.equals("0")) {
+            currentPoints = game2(keyboard, currentPoints, userInput);
+            System.out.println("Press 0 to PLAY AGAIN or 9 to EXIT!");
+            userInput = keyboard.next();
+        }
         return currentPoints;
     }
 }
