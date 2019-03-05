@@ -142,7 +142,7 @@ public class Main {
                 "\n" + "If it does not match exactly, you lose your risk amount.");
 
 
-        while (!userInput.equals("-1")) {
+        //while (!userInput.equals("-1")) {
 
             System.out.println("Press 1 to play RANGE or Press 2 to play AMOUNT.");
 
@@ -242,7 +242,8 @@ public class Main {
                     }
                 }*/
             }
-        }
+
+
         return currentPoints;
     }
 
