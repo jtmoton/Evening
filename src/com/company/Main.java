@@ -230,8 +230,8 @@ public class Main {
                     System.out.println("You now have " + currentPoints + " points.");
                 }
                 currentPoints = whatLevel(currentPoints);
-                System.out.println("Press 0 to PLAY AGAIN! Press 9 to EXIT!");
-                userInput = keyboard.next();
+                //System.out.println("Press 0 to PLAY AGAIN! Press 9 to EXIT!");
+                //userInput = keyboard.next();
 
                 /*while (!userInput.equals("9")) {
 
