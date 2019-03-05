@@ -94,16 +94,20 @@ public class Main {
 
                 }
                 currentPoints = whatLevel(currentPoints);
-                System.out.println("Press 0 to PLAY AGAIN! Press any other key to EXIT!");
+                System.out.println("Press 0 to PLAY AGAIN! Press 9 to EXIT!");
                 userInput = keyboard.next();
-                if(userInput.equals("0")) {
-                    currentPoints = game1(keyboard, userInput, currentPoints);
 
+                while(!userInput.equals("9")) {
+
+                    if (userInput.equals("0")) {
+                        currentPoints = game1(keyboard, userInput, currentPoints);
+                    } else if (userInput.equals("9")) {
+                        getMenuChoice(keyboard, userInput);
+                    }
                 }
-                currentPoints = whatLevel(currentPoints);
+                //currentPoints = whatLevel(currentPoints);
                 userInput = gameOverInput(userInput);
             }
-
         }
         return currentPoints;
     }
@@ -184,14 +188,16 @@ public class Main {
                         }
                     }
                     currentPoints = whatLevel(currentPoints);
-                    System.out.println("Press 0 to PLAY AGAIN! Press any other key to EXIT!");
-
+                    System.out.println("Press 0 to PLAY AGAIN! Press 9 to EXIT!");
                     userInput = keyboard.next();
-                    if (userInput.equals("0")) {
-                        currentPoints = game2(keyboard, currentPoints, userInput);
-                    }
+
                     currentPoints = whatLevel(currentPoints);
                     userInput = gameOverInput(userInput);
+                }
+                if (userInput.equals("0")) {
+                    currentPoints = game2(keyboard, currentPoints, userInput);
+                } else if (userInput.equals("9")) {
+                    getMenuChoice(keyboard, userInput);
                 }
             }
 
@@ -222,14 +228,16 @@ public class Main {
                     System.out.println("You now have " + currentPoints + " points.");
                 }
                 currentPoints = whatLevel(currentPoints);
-                System.out.println("Press 0 to PLAY AGAIN! Press any other key to EXIT!");
-
+                System.out.println("Press 0 to PLAY AGAIN! Press 9 to EXIT!");
                 userInput = keyboard.next();
-                if (userInput.equals("0")) {
-                    currentPoints = game2(keyboard, currentPoints, userInput);
+
+                while(!userInput.equals("9")) {
+                    if (userInput.equals("0")) {
+                        currentPoints = game2(keyboard, currentPoints, userInput);
+                    } else if (userInput.equals("9")) {
+                        getMenuChoice(keyboard, userInput);
+                    }
                 }
-                /*currentPoints = gameOver(currentPoints);
-                userInput = gameOverInput(userInput);*/
             }
         }
         return currentPoints;
