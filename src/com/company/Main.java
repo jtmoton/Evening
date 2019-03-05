@@ -97,15 +97,17 @@ public class Main {
                 System.out.println("Press 0 to PLAY AGAIN! Press 9 to EXIT!");
                 userInput = keyboard.next();
 
-                while(!userInput.equals("9")) {
+                runGame1(currentPoints, userInput, keyboard);
+
+                /*while(!userInput.equals("9")) {
 
                     if (userInput.equals("0")) {
                         currentPoints = game1(keyboard, userInput, currentPoints);
                     } else if (userInput.equals("9")) {
                         getMenuChoice(keyboard, userInput);
                     }
-                }
-                //currentPoints = whatLevel(currentPoints);
+                }*/
+                currentPoints = whatLevel(currentPoints);
                 userInput = gameOverInput(userInput);
             }
         }
@@ -194,10 +196,12 @@ public class Main {
                     currentPoints = whatLevel(currentPoints);
                     userInput = gameOverInput(userInput);
                 }
-                if (userInput.equals("0")) {
-                    currentPoints = game2(keyboard, currentPoints, userInput);
-                } else if (userInput.equals("9")) {
+                while (!userInput.equals("9")) {
+                    if (userInput.equals("0")) {
+                        currentPoints = game2(keyboard, currentPoints, userInput);
+                    } else if (userInput.equals("9")) {
                     getMenuChoice(keyboard, userInput);
+                }
                 }
             }
 
@@ -232,6 +236,7 @@ public class Main {
                 userInput = keyboard.next();
 
                 while(!userInput.equals("9")) {
+
                     if (userInput.equals("0")) {
                         currentPoints = game2(keyboard, currentPoints, userInput);
                     } else if (userInput.equals("9")) {
@@ -283,6 +288,18 @@ public class Main {
             currentPoints = 500;
             System.out.println("You'll be reset to 500 points so you can play again!");
         }
+        return currentPoints;
+    }
+
+    public static int runGame1(int currentPoints, String userInput, Scanner keyboard) {
+        userInput = "0";
+
+            while(userInput.equals("0")) {
+            currentPoints = game1(keyboard, userInput, currentPoints);
+            System.out.println("Press 0 to PLAY AGAIN or 9 to EXIT!");
+            userInput = keyboard.next();
+        }
+
         return currentPoints;
     }
 }
